@@ -1,0 +1,31 @@
+@import "../styles/variables.scss";
+
+.app-filter-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 3rem 0;
+    width: 80%;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+.app-filter-tab {
+    background-color: $base-color-primary;
+    padding: 1.5rem 1rem;
+    border-radius: 10px;
+    box-shadow: $box-shadow;
+
+    &.active-filter-tab {
+        box-shadow: $box-shadow-hover;
+        outline: 3px solid $base-color-secondary;
+    }
+}
+
+.app-filter-tab:hover {
+    cursor: pointer;
+    box-shadow: $box-shadow-hover;
+    outline: 3px solid $base-color-secondary;
+}
