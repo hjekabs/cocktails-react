@@ -1,6 +1,7 @@
-import { getRandomCocktailDetails } from "../services/cocktails"
-import CocktailDetails from "../components/CocktailDetails"
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react"
+import { getCocktailDetails } from "../services/cocktails"
+import CocktailDetails from "../components/CocktailDetails"
 import "./CocktailView.scss"
 
 
@@ -12,18 +13,18 @@ interface Details {
     strCategory: string,
 }
 
-const CocktailRandom = () => {
+const CocktailView = () => {
 
+    const { id } = useParams()
     const [details, setDetails] = useState({} as Details)
 
     useEffect(() => {
         (async () => {
-            const details = await getRandomCocktailDetails()
+            const details = await getCocktailDetails(id)
             console.log(details)
             setDetails(details)
         })()
-    }, [])
-
+    }, [id])
 
     return (
         <div className="cocktail-view">
@@ -32,4 +33,4 @@ const CocktailRandom = () => {
     )
 }
 
-export default CocktailRandom;
+export default CocktailView

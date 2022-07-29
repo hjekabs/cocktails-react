@@ -1,10 +1,15 @@
+interface CokctailParams {
+    strDrink: string,
+    strDrinkThumb: string
+}
+
 interface Cocktail {
-    cocktail: any
+    cocktail: CokctailParams
 }
 
 const CocktailCard = ({ cocktail }: Cocktail) => {
     return (
-        <div className="cocktail-card">
+        <div className="cocktail-card-body">
             <div>
                 <img width={128} height={128} src={cocktail.strDrinkThumb} />
             </div>

@@ -1,5 +1,6 @@
-import React, { useState, useEffect, FormEvent } from "react"
-import { getIngredientList, getCocktails } from "../services/cocktailIngredients"
+import React, { useState, useEffect } from "react"
+import { Link } from "react-router-dom";
+import { getIngredientList, getCocktails } from "../services/cocktails"
 import CocktailCard from "../components/CocktailCard"
 
 import Select from 'react-select'
@@ -9,12 +10,19 @@ interface IngredientOptions {
     label: string
 }
 
+interface Cocktail {
+    strDrink: string,
+    strDrinkThumb: string,
+    idDrink: string
+}
+
 const CocktailIngredient = () => {
     const [ingredients, setIngredients] = useState([])
     const [loaded, setLoaded] = useState(false)
     const [selectedIngredients, setSelectedIngredients] = useState([])
     const [cocktails, setCocktails] = useState([])
 
+    // Could refactor elsewhere
     const customStyles = {
         control: (styles: any) => ({
             ...styles,
@@ -72,6 +80,8 @@ const CocktailIngredient = () => {
                 const cocktails = await getCocktails(selectedIngredients)
                 setCocktails(cocktails)
             })()
+        } else {
+            setCocktails([])
         }
     }, [selectedIngredients])
 
@@ -85,9 +95,13 @@ const CocktailIngredient = () => {
                         ?
                         <div className="cocktail-grid">
                             {
-                                cocktails.map(cocktail => {
+                                cocktails.map((cocktail: Cocktail, i) => {
                                     return (
-                                        <CocktailCard cocktail={cocktail} />
+                                        <Link to={`/cocktail/${cocktail.idDrink}`} key={`index-${i}`}>
+                                            <div className="cocktail-card">
+                                                <CocktailCard cocktail={cocktail} />
+                                            </div>
+                                        </Link>
                                     )
                                 })
                             }

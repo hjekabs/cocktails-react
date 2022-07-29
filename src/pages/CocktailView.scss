@@ -1,0 +1,15 @@
+.cocktail-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.go-back {
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
