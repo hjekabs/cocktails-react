@@ -52,3 +52,12 @@
   border: 3px solid $base-color-secondary;
   border-radius: 5px;
 }
+
+@media screen and (max-width: 960px) {
+  .cocktail-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+    margin-top: 3rem;
+  }
+}
