@@ -15,3 +15,23 @@
   flex-direction: column;
   width: 100%;
 }
+
+.button-main {
+  background-color: $base-color-red;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    background-color: darken($base-color-red, 3);
+  }
+}
+
+// helper classes
+.my {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}

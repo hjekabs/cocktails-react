@@ -2,10 +2,6 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Select from 'react-select'
 
-interface Cocktail {
-    strIngredient1: string
-}
-
 interface IngredientOptions {
     value: string,
     label: string
@@ -17,9 +13,32 @@ const CocktailIngredient = () => {
     const [selectedIngredients, setSelectedIngredients] = useState([])
 
     const customStyles = {
-        menu: () => ({
+        control: (styles: any) => ({
+            ...styles,
+            backgroundColor: "#0F3460",
+            borderColor: "#1A1A2E",
+        }),
+        menu: (provided: any) => ({
+            ...provided,
             backgroundColor: "#0F3460"
-        })
+        }),
+        option: (styles: any) => ({
+            ...styles,
+            ':hover': {
+                cursor: 'pointer',
+                color: '#1A1A2E'
+            }
+        }),
+        multiValue: (styles: any) => ({
+            ...styles,
+            backgroundColor: '#1A1A2E',
+            color: 'white',
+            borderRadius: '5px'
+        }),
+        multiValueLabel: (styles: any) => ({
+            ...styles,
+            color: 'white'
+        }),
     }
 
 
@@ -50,9 +69,11 @@ const CocktailIngredient = () => {
         return (
             <div>
                 <form>
-                    <label>Search by ingredient:</label>
+                    <label className="my">Search by ingredient:</label>
                     <Select styles={customStyles} isMulti options={cocktails} onChange={handleIngredientChange} />
-                    <button onClick={searchCocktails}>Search Cocktails</button>
+                    {
+                        selectedIngredients.length ? <button className="button-main my" onClick={searchCocktails}>Search Cocktails</button> : ""
+                    }
                 </form>
             </div>
 
