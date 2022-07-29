@@ -7,6 +7,7 @@ import {
   Route,
 } from "react-router-dom";
 import CocktailName from "./pages/CocktailName"
+import CocktailIngredient from './pages/CocktailIngredient';
 
 function App() {
   return (
@@ -14,10 +15,14 @@ function App() {
 
       <BrowserRouter>
         <Header />
-        <Routes>
-          <Route path='/' element={<WelcomePage />}></Route>
-          <Route path='/cocktail-name' element={<CocktailName />}></Route>
-        </Routes></BrowserRouter>
+
+        <div id='page-wrapper'>
+          <Routes>
+            <Route path='/' element={<WelcomePage />}></Route>
+            <Route path='/cocktail-ingredient' element={<CocktailIngredient />}></Route>
+          </Routes>
+        </div>
+      </BrowserRouter>
     </div>
   );
 }
