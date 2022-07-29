@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
+import React, { useState, useEffect, FormEvent } from "react"
+import { getIngredientList, getCocktails } from "../services/cocktailIngredients"
+import CocktailCard from "../components/CocktailCard"
+
 import Select from 'react-select'
 
 interface IngredientOptions {
@@ -8,9 +10,10 @@ interface IngredientOptions {
 }
 
 const CocktailIngredient = () => {
-    const [cocktails, setCocktails] = useState([])
+    const [ingredients, setIngredients] = useState([])
     const [loaded, setLoaded] = useState(false)
     const [selectedIngredients, setSelectedIngredients] = useState([])
+    const [cocktails, setCocktails] = useState([])
 
     const customStyles = {
         control: (styles: any) => ({
@@ -42,39 +45,55 @@ const CocktailIngredient = () => {
     }
 
 
-    const handleIngredientChange = (ingredients: any) => {
+    const handleIngredientChange = async (ingredients: any) => {
         setSelectedIngredients(ingredients)
     }
 
-    const searchCocktails = () => {
-
-    }
-
     useEffect(() => {
-        axios.get("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list").then(response => {
+        (async () => {
+            const ingredients = await getIngredientList()
             let ingredientOptions: any = []
-            for (const cocktail of response.data.drinks) {
+            for (const cocktail of ingredients) {
                 let obj: IngredientOptions = {
                     value: cocktail.strIngredient1,
                     label: cocktail.strIngredient1
                 }
                 ingredientOptions.push(obj)
             }
-            setCocktails(ingredientOptions)
+            setIngredients(ingredientOptions)
             setLoaded(true)
-        }).catch(err => console.log(err))
+        })()
     }, [])
+
+
+    useEffect(() => {
+        if (selectedIngredients.length) {
+            (async () => {
+                const cocktails = await getCocktails(selectedIngredients)
+                setCocktails(cocktails)
+            })()
+        }
+    }, [selectedIngredients])
 
     if (loaded) {
         return (
             <div>
-                <form>
-                    <label className="my">Search by ingredient:</label>
-                    <Select styles={customStyles} isMulti options={cocktails} onChange={handleIngredientChange} />
-                    {
-                        selectedIngredients.length ? <button className="button-main my" onClick={searchCocktails}>Search Cocktails</button> : ""
-                    }
-                </form>
+                <label className="my">Search by ingredient:</label>
+                <Select styles={customStyles} isMulti options={ingredients} onChange={handleIngredientChange} />
+                {
+                    cocktails.length
+                        ?
+                        <div className="cocktail-grid">
+                            {
+                                cocktails.map(cocktail => {
+                                    return (
+                                        <CocktailCard cocktail={cocktail} />
+                                    )
+                                })
+                            }
+                        </div>
+                        : ""
+                }
             </div>
 
         )

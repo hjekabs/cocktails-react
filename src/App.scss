@@ -35,3 +35,20 @@
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
+.cocktail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 3rem;
+}
+
+.cocktail-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 0.5rem;
+  border: 3px solid $base-color-secondary;
+  border-radius: 5px;
+}
