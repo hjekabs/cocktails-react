@@ -14,7 +14,7 @@ export const getIngredientList = () => {
 export const getCocktails = (ingredients: Array<IngredientOptions>) => {
     let queryString = ""
     for (const ingredient of ingredients) {
-        queryString += `i=${ingredient.value}`
+        queryString += `i=${ingredient.value}&`
     }
 
     return axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?${queryString}`).then(response => {
